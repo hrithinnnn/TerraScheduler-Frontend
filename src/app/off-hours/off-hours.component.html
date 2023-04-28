@@ -1,0 +1,50 @@
+<div style="width: 300px; margin: 20px;" fxLayout="column" fxLayoutGap="10px">
+
+    <!-- <div><span>Email:</span><span>{{ profile.email }}</span></div>
+
+    <div><span>Name:</span><span>{{ profile.name }}</span></div>
+
+    <div><span>Role:</span><span>{{ profile.role }}</span></div> -->
+
+    <h1>Off-Hours</h1>
+    
+    <!-- <label for="date">Pick a Date!</label>
+    <input type="date" name="" id="date"> -->
+
+    <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    <div>Pick start time(24h)</div>
+    <div fxLayout="row" fxLayoutGap="5px">
+
+        <input style="width: 30px;" type="number" min="00" 
+        max="24">
+
+        <div>:</div>
+
+        <input style="width: 30px;" type="number" min="00" 
+        max="59">
+
+    </div>
+
+    <div>Pick end time(24h)</div>
+    <div fxLayout="row" fxLayoutGap="5px">
+
+        <input style="width: 30px;" type="number" min="00" 
+        max="24">
+
+        <div>:</div>
+
+        <input style="width: 30px;" type="number" min="00" 
+        max="59">
+        
+    </div>
+    
+    <button (click)="submit()" mat-button style="background-color: black; color: white;">Set off-hours</button>
+
+</div>

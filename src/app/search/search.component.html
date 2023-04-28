@@ -1,0 +1,8 @@
+<mat-form-field appearance="fill" >
+    <mat-label>Enter your email</mat-label>
+    <input matInput [formControl]="searchFormControl">
+</mat-form-field>
+
+<mat-list role="list">
+    <mat-list-item role="listitem" (click)="moveToProfile(result.email)" *ngFor="let result of results">{{result.email}}</mat-list-item>
+</mat-list>
