@@ -1,24 +1,48 @@
-<div *ngIf="this.logIn" style="width: 300px;" fxLayout="column" fxLayoutGap="10px">
+<div style="width: 300px;" fxLayout="column" fxLayoutGap="10px">
 
-    <form [formGroup]="formGroup">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()">
 
-        <mat-form-field appearance="fill" formControlName="email">
+        <mat-form-field *ngIf="!logIn" appearance="fill" >
+            <mat-label>Enter your name</mat-label>
+            <input matInput formControlName="name">
+            <mat-error *ngIf="(isSubmitted || isNameTouched) && getControl('name')?.hasError('required')">
+                Pleas enter a name
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!logIn" appearance="fill">
+            <mat-label>Enter your role</mat-label>
+            <input matInput formControlName="role">
+            <mat-error *ngIf="(isSubmitted || isRoleTouched) && getControl('role')?.hasError('required')">
+                Please enter a role
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
             <mat-label>Enter your email</mat-label>
-            <input matInput [errorStateMatcher]="matcher">
-            <mat-error *ngIf="this.formGroup.controls['email'].hasError('email') && !this.formGroup.controls['email'].hasError('email')">
+            <input matInput formControlName="email">
+            <mat-error *ngIf="(isSubmitted || isEmailTouched) && getControl('email')?.hasError('required')">
+                Please enter your email
+            </mat-error>
+            <mat-error *ngIf="(isSubmitted || isEmailTouched) && !getControl('email')?.hasError('required') && getControl('email')?.hasError('email')">
                 Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="isSubmitted && emailExists && !logIn">
+                PUser already exists! Please login.
             </mat-error>
         </mat-form-field>
     
-        <mat-form-field appearance="fill" formControlName="password">
+        <mat-form-field appearance="fill">
           <mat-label>Enter your password</mat-label>
-          <input matInput [errorStateMatcher]="matcher">
-          <mat-error *ngIf="this.formGroup.controls['password'].hasError('required')">
-            Please enter a valid email address
+          <input matInput type="password" formControlName="password">
+          <mat-error *ngIf="(isSubmitted || isPasswordTouched) && getControl('password')?.hasError('required')">
+            Please enter a password
         </mat-error>
         </mat-form-field><br>
-        <button mat-button style="background-color: black; color: white; margin-right: 20px;">Log In</button>
-        <button mat-button (click)="toggle()" style="background-color: black; color: white;">SignUp</button>
+
+        <button type="submit" mat-button style="background-color: black; color: white; margin-right: 20px;">{{ logIn ? 'Log In' : 'Sign Up' }}</button>
+        
+        <div mat-button (click)="togglePage()" style="cursor: pointer; text-decoration: underline; margin-top: 10px;">{{ logIn ? 'Create an account!' : 'Log In'}}</div>
     </form>
 
 </div>
@@ -27,7 +51,7 @@
 
 
 
-<div *ngIf="!this.logIn" style="width: 300px; margin: 20px;" fxLayout="column" fxLayoutGap="10px">
+<!-- <div *ngIf="!this.logIn" style="width: 300px; margin: 20px;" fxLayout="column" fxLayoutGap="10px">
     <h1>Sign Up</h1>
 
     <div>
@@ -52,4 +76,4 @@
     </div>
     <button (click)="toggle()" mat-button style="background-color: black; color: white;">Register</button> 
 
-</div>
+</div> -->
