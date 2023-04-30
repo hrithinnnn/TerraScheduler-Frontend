@@ -1,3 +1,18 @@
 <!-- <app-signup></app-signup> -->
+
+<mat-toolbar *ngIf="isAuth" style="height: 10%; padding-left: 30px; padding-right: 30px; margin-bottom: 10px;" class="mat-elevation-z6">
+
+    <div style="width: 100%; height: 100%;" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="25px">
+  
+      <div *ngFor="let action of actions">
+        
+        <div class="actions" (click)="goTo(action.route)"> {{ action.name }} </div>
+  
+      </div>
+  
+    </div>
+  
+</mat-toolbar>
+
 <router-outlet></router-outlet>
 

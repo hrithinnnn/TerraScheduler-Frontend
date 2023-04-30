@@ -16,12 +16,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CalendarComponent } from './calendar/calendar.component';
 import { ProfileComponent } from './profile/profile.component';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { OffHoursComponent } from './off-hours/off-hours.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { SearchComponent } from './search/search.component';
+import { LogInGuard } from './guards/login.guard';
+import { LogOutGuard } from './guards/logout.guard';
 
 // import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
@@ -29,9 +29,7 @@ import { SearchComponent } from './search/search.component';
   declarations: [
     AppComponent,
     LoginSignupComponent,
-    CalendarComponent,
     ProfileComponent,
-    EditProfileComponent,
     OffHoursComponent,
     AppointmentComponent,
     SearchComponent,
@@ -47,7 +45,7 @@ import { SearchComponent } from './search/search.component';
     // NgxMaterialTimepickerModule,
     
   ],  
-  providers: [],
+  providers: [LogInGuard, LogOutGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

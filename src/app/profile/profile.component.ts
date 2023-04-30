@@ -3,12 +3,12 @@ import { Profile } from '../resources/profile.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { AppointmentComponent } from '../appointment/appointment.component';
 import { OffHoursComponent } from '../off-hours/off-hours.component';
-import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../services/user/user.service';
 import { API_URL } from '../services/response.interface';
 import { FormControl } from '@angular/forms';
+import { AuthService } from '../services/auth/auth.service';
 /**
  * Email
  * Name
@@ -21,6 +21,7 @@ import { FormControl } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
   currentUser = false;
+  ready = false;
   profile: Profile = {
     name: "",
     email: "",
@@ -32,7 +33,7 @@ export class ProfileComponent implements OnInit {
 
   schedule: any[] = [];
 
-  constructor(public dialog: MatDialog, private route: ActivatedRoute, private http:HttpClient, private userService:UserService) {}
+  constructor(public dialog: MatDialog, private route: ActivatedRoute, private http:HttpClient, private userService:UserService, private authService: AuthService) {}
 
   ngOnInit(): void {
       
@@ -51,9 +52,27 @@ export class ProfileComponent implements OnInit {
 
   load() {
 
+    this.ready = false;
+
     //do refresh
     const email = this.route.snapshot.paramMap.get('email')!;
+
+    if(!this.authService.isAuthenticated) return;
+
+    this.authService.decodeToken(localStorage.getItem("token")!).subscribe((res) => {
+
+      if(res.status === 400) {
+
+        return;
+      }
+
+      this.currentUser = res.data.decoded === email;
+
+      this.ready = true;
+    })
+
     this.currentUser = email === this.userService.currentUser;
+    console.log(email, this.userService.currentUser)
     this.profile.email = email;
     //use this email to fetch the actual user
     this.userService.searchByEmail(email).subscribe((res) => {
@@ -81,16 +100,6 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  openEditDialog(): void {
-    const dialogRef = this.dialog.open(EditProfileComponent, {
-      data: {profile: this.profile},
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.load();
-    });
-  }
-
   openApptDialog(): void {
     const dialogRef = this.dialog.open(AppointmentComponent, {
       data: {profile: this.profile},
@@ -110,6 +119,7 @@ export class ProfileComponent implements OnInit {
       this.load();
     });
   }
+
   // openEditApptDialog(): void {
   //   const dialogRef = this.dialog.open(EditAppointmentComponent, {
   //     data: {profile: this.profile},

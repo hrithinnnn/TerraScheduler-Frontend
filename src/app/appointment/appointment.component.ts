@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { OffHoursComponent } from '../off-hours/off-hours.component';
+// import { OffHoursComponent } from '../off-hours/off-hours.component';
 import { Profile } from '../resources/profile.interface';
 import { UserService } from '../services/user/user.service';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from "@angular/forms";
@@ -15,7 +15,7 @@ export class AppointmentComponent implements OnInit {
 
   profile: Profile
 
-  constructor(public dialogRef: MatDialogRef<OffHoursComponent>,
+  constructor(public dialogRef: MatDialogRef<AppointmentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { profile: Profile }, private userService: UserService, private fb: FormBuilder) {
 
     this.profile = data.profile

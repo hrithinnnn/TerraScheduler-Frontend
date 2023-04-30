@@ -1,13 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_URL, CustomHttpResponse } from '../response.interface';
-import { catchError, tap, of } from 'rxjs';
+import { catchError, tap, of, finalize } from 'rxjs';
 import { FeedbackService } from '../feedback.service';
+
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthService {
+
+  loggingOut = false;
 
   constructor(private http: HttpClient, private feedback: FeedbackService) { }
 
@@ -28,7 +31,6 @@ export class AuthService {
       tap((res: any) => {
 
         if(res.status === 400) throw new Error(res.error.error.errorString);
-
       }),
 
 
@@ -63,8 +65,10 @@ export class AuthService {
         console.log(res);
 
         if(res.status === 400) throw new Error(res.error.error.errorString);
-
+        
         localStorage.setItem("token", res.data.token);
+        
+        this.feedback.openSnackBar(res.message)
       }),
 
 
@@ -75,6 +79,11 @@ export class AuthService {
         this.feedback.openSnackBar(err.error.error.errorString);
         return of({errorString: err.error.error.errorString, status: err.error.status});
 
+      }),
+
+      finalize(() => {
+
+        this.loggingOut = false;
       })
 
     );
@@ -99,6 +108,7 @@ export class AuthService {
       tap((res: any) => {
 
         if(res.status === 400) throw new Error(res.error.error.errorString);
+        this.feedback.openSnackBar(res.message)
 
       }),
 
@@ -119,7 +129,7 @@ export class AuthService {
 
   logout() {
 
-    return this.http.post(API_URL + '/logout', {
+    return this.http.post(API_URL + '/logout', {}, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json; charset=utf-8',
         'authorization': localStorage.getItem("token")!
@@ -129,8 +139,7 @@ export class AuthService {
       tap((res: any) => {
 
         if(res.status === 400) throw new Error(res.error.error.errorString);
-
-        localStorage.removeItem("token");
+        this.feedback.openSnackBar(res.message)
 
       }),
 
@@ -164,6 +173,7 @@ export class AuthService {
       tap((res: any) => {
 
         if(res.status === 400) throw new Error(res.error.error.errorString);
+        this.feedback.openSnackBar(res.message)
 
       }),
 

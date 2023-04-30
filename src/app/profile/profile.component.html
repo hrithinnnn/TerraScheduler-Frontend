@@ -32,11 +32,9 @@
         </mat-list-item>
     </mat-list>
 
-    <button *ngIf="currentUser" (click)="openEditDialog()" mat-button
-        style="background-color: black; color: white;">Edit profile</button>
-    <button *ngIf="!currentUser" (click)="openApptDialog()" mat-button
+    <button *ngIf="ready && !currentUser" (click)="openApptDialog()" mat-button
         style="background-color: black; color: white;">Make Appointment</button>
-    <button *ngIf="currentUser" (click)="openOffHrsDialog()" mat-button
+    <button *ngIf="ready && currentUser" (click)="openOffHrsDialog()" mat-button
         style="background-color: black; color: white;">Set off-hours</button>
     <!-- <button *ngIf="currentUser" (click)="openEditApptDialog()" mat-button style="background-color: black; color: white;">Edit Appointment</button> -->
 </div>
