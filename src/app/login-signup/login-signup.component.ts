@@ -3,6 +3,8 @@ import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
+import { AuthService } from "../services/auth/auth.service";
+import { UserService } from "../services/user/user.service";
 
 @Component({
     selector: 'login-signup',
@@ -15,9 +17,10 @@ export class LoginSignupComponent implements OnInit {
     logIn = true;
     isSubmitted = false;
     emailExists = false;
+    pending = false;
+    credError = false;
 
-
-    constructor(private route: Router, private fb: FormBuilder,) {
+    constructor(private route: Router, private fb: FormBuilder, private authService: AuthService, private userService: UserService) {
 
             
     }
@@ -90,16 +93,56 @@ export class LoginSignupComponent implements OnInit {
     }
 
     submit() {
+
+        if(!this.formGroup.valid) return;
+
         this.isSubmitted = true;
 
         console.log(this.isNameTouched, this.isRoleTouched, this.isEmailTouched, this.isPasswordTouched);
 
         if(this.logIn) {
 
+            this.pending = true;
+
+            this.authService.login(this.getControl('email').value, this.getControl('password').value).subscribe((res) => {
+
+                console.log(res);
+                
+                this.pending = false;
+
+                if(res.errorString === "Wrong credentials" || res.status === 400) {
+
+                    this.credError = true;
+                    return;
+                }
+
+                this.credError = false;
+
+                this.userService.currentUser = this.getControl('email').value;
+
+                this.route.navigate(['/profile', this.getControl('email').value]);
+
+            });
 
         } else {
 
-            
+            this.pending = true;
+
+            this.authService.signup(this.getControl('name').value, this.getControl('role').value, this.getControl('email').value, this.getControl('password').value).subscribe((res) => {
+
+                console.log(res);
+                
+                this.pending = false;
+
+                if(res.status === 400) {
+
+                    return;
+                }
+
+                this.route.navigateByUrl("/login");
+
+            });
+
         }
     }
 }

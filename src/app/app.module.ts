@@ -4,6 +4,8 @@
  * Components - html, css, ts
  */
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -20,7 +22,6 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { OffHoursComponent } from './off-hours/off-hours.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { SearchComponent } from './search/search.component';
-import { EditAppointmentComponent } from './edit-appointment/edit-appointment.component';
 
 // import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
@@ -34,7 +35,6 @@ import { EditAppointmentComponent } from './edit-appointment/edit-appointment.co
     OffHoursComponent,
     AppointmentComponent,
     SearchComponent,
-    EditAppointmentComponent,
   ], // All components of this module
   imports: [
     BrowserModule,
@@ -43,6 +43,7 @@ import { EditAppointmentComponent } from './edit-appointment/edit-appointment.co
     FlexLayoutModule,
     ReactiveFormsModule,
     MaterialModule,
+    HttpClientModule
     // NgxMaterialTimepickerModule,
     
   ],  

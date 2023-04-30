@@ -6,6 +6,7 @@ import { MatButtonModule } from "@angular/material/button";
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 const matModules = [
@@ -15,7 +16,8 @@ const matModules = [
     MatButtonModule,
     MatDialogModule,
     MatListModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSnackBarModule
 ]
 
 @NgModule({

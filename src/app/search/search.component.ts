@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription, debounceTime } from 'rxjs';
 import { Profile } from '../resources/profile.interface';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-search',
@@ -16,7 +17,7 @@ export class SearchComponent implements OnInit {
 
   results: Profile[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
 
@@ -32,22 +33,21 @@ export class SearchComponent implements OnInit {
 
   searchForUser(value: string) {
 
-    console.log("value")
-    this.results.push(
-      {
-        name: "a",
-        email: "a@b.com",
-        role: "dev"
-      }
-    )
+    console.log("value");
 
-    this.results.push(
-      {
-        name: "a",
-        email: "b@b.com",
-        role: "dev"
-      }
-    )
+    this.userService.searchByEmail(value).subscribe((res) => {
+
+      if(res.status === 400) return;
+
+
+    });
+
+    this.userService.searchByEmail(value).subscribe((res) => {
+
+      if(res.status === 400) return;
+
+      this.results = (res.data.docs as Profile[]);
+    });
   }
 
   moveToProfile(email: string) { 

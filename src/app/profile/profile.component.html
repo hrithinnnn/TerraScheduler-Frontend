@@ -1,4 +1,4 @@
-<div style="width: 300px;" fxLayout="column" fxLayoutGap="10px">
+<div fxLayout="column" fxLayoutGap="10px">
 
     <div><span>Email:</span><span>{{ profile.email }}</span></div>
 
@@ -6,10 +6,37 @@
 
     <div><span>Role:</span><span>{{ profile.role }}</span></div>
 
-    <app-calendar></app-calendar> 
-    
-    <button *ngIf="currentUser" (click)="openEditDialog()" mat-button style="background-color: black; color: white;">Edit profile</button>
-    <button *ngIf="!currentUser" (click)="openApptDialog()" mat-button style="background-color: black; color: white;">Make Appointment</button>
-    <button *ngIf="currentUser" (click)="openOffHrsDialog()" mat-button style="background-color: black; color: white;">Set off-hours</button>
-    <button *ngIf="currentUser" (click)="openEditApptDialog()" mat-button style="background-color: black; color: white;">Edit Appointment</button>
+    <!-- <app-calendar [email]="profile.email"></app-calendar>  -->
+
+    <div style="min-width: 300px;" fxLayout="column" fxLayoutGap="10px">
+
+        <!-- <label for="date">Pick a Date!</label>
+        <input type="date" name="" id="date"> -->
+        <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [formControl]="date" [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+    </div>
+
+    <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let event of schedule">
+
+            <div matListItemTitle>{{ event.type }}: {{ event.type === "Appointment" ? event.guestEmail + " and " : "" }} {{ event.type === "Appointment" ? event.hostEmail : event.email }}</div>
+            
+            <div matListItemLine>{{ event.startTime }} to {{ event.endTime }}</div>
+            
+        </mat-list-item>
+    </mat-list>
+
+    <button *ngIf="currentUser" (click)="openEditDialog()" mat-button
+        style="background-color: black; color: white;">Edit profile</button>
+    <button *ngIf="!currentUser" (click)="openApptDialog()" mat-button
+        style="background-color: black; color: white;">Make Appointment</button>
+    <button *ngIf="currentUser" (click)="openOffHrsDialog()" mat-button
+        style="background-color: black; color: white;">Set off-hours</button>
+    <!-- <button *ngIf="currentUser" (click)="openEditApptDialog()" mat-button style="background-color: black; color: white;">Edit Appointment</button> -->
 </div>

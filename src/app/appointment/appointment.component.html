@@ -1,55 +1,65 @@
-<div style="width: 300px; margin: 20px;" fxLayout="column" fxLayoutGap="10px">
+<form [formGroup]="formGroup">
 
-    <!-- <div><span>Email:</span><span>{{ profile.email }}</span></div>
+    <div style="width: 300px; margin: 20px;" fxLayout="column" fxLayoutGap="10px">
+
+        <!-- <div><span>Email:</span><span>{{ profile.email }}</span></div>
 
     <div><span>Name:</span><span>{{ profile.name }}</span></div>
 
     <div><span>Role:</span><span>{{ profile.role }}</span></div> -->
 
-    <h1>Appointment</h1>
+        <h1>Appointment</h1>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Title</mat-label>
-        <input matInput value="Appointment">
-    </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-        <mat-label>Agenda</mat-label>
-        <textarea matInput placeholder="Ex. 100 Main St">This is an appointment with {{ profile.name }}</textarea>
-    </mat-form-field>
-    
-    <!-- <label for="date">Pick a Date!</label>
+        <mat-form-field appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" value="Appointment">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Agenda</mat-label>
+            <textarea matInput formControlName="agenda"
+                placeholder="Ex. 100 Main St">This is an appointment with {{ profile.name }}</textarea>
+        </mat-form-field>
+
+        <!-- <label for="date">Pick a Date!</label>
     <input type="date" name="" id="date"> -->
-    <mat-form-field appearance="fill">
-        <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput formControlName="date" [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
 
-    <div>Pick start time(24h)</div>
-    <div fxLayout="row" fxLayoutGap="5px">
+        <div>Pick start time(24h)</div>
+        <div fxLayout="row" fxLayoutGap="5px">
 
-        <input style="width: 30px;" type="number" min="00" max="24">
+            <input matInput formControlName="t1h" style="width: 30px;" type="number" min="00" max="24">
 
-        <div>:</div>
+            <div>:</div>
 
-        <input style="width: 30px;" type="number" min="00" max="59">
+            <input matInput formControlName="t1m" style="width: 30px;" type="number" min="00" max="59">
+
+        </div>
+
+        <div>Pick end time(24h)</div>
+        <div fxLayout="row" fxLayoutGap="5px">
+
+            <input matInput formControlName="t2h" style="width: 30px;" type="number" min="00" max="24">
+
+            <div>:</div>
+
+            <input matInput formControlName="t2m" style="width: 30px;" type="number" min="00" max="59">
+
+
+        </div>
+        <!-- <mat-form-field class="example-full-width">
+            <mat-label>Host Email</mat-label>
+            <input matInput formControlName="hostEmail" placeholder="a@b.com">
+        </mat-form-field> -->
+
+        <button mat-button (click)="makeApt()" style="background-color: black; color: white;">Make Appointment</button>
 
     </div>
-
-    <div>Pick end time(24h)</div>
-    <div fxLayout="row" fxLayoutGap="5px">
-
-        <input style="width: 30px;" type="number" min="00" max="24">
-
-        <div>:</div>
-
-        <input style="width: 30px;" type="number" min="00" max="59">
-        
-    </div>
-    
-    <button (click)="submit()" mat-button style="background-color: black; color: white;">Make Appointment</button>
-
-</div>
+</form>

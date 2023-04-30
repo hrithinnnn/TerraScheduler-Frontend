@@ -40,6 +40,10 @@
         </mat-error>
         </mat-form-field><br>
 
+        <mat-error *ngIf="credError">
+            Wrong Credentials
+        </mat-error>
+
         <button type="submit" mat-button style="background-color: black; color: white; margin-right: 20px;">{{ logIn ? 'Log In' : 'Sign Up' }}</button>
         
         <div mat-button (click)="togglePage()" style="cursor: pointer; text-decoration: underline; margin-top: 10px;">{{ logIn ? 'Create an account!' : 'Log In'}}</div>
