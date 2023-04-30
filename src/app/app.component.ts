@@ -51,6 +51,7 @@ export class AppComponent {
         const email = res.data.decoded;
 
         this.router.navigateByUrl(`/profile/${email}`);
+        
       });
 
       return;

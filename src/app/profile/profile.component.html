@@ -34,7 +34,7 @@
             <div matListItemTitle>{{ event.type }}: {{ event.type === "Appointment" ? event.guestEmail + " and " : "" }}
                 {{ event.type === "Appointment" ? event.hostEmail : event.email }}</div>
 
-            <div matListItemLine>{{ event.startTime }} to {{ event.endTime }}</div>
+            <div matListItemLine>{{ event.startTime.split('-')[0]}}:{{event.startTime.split('-')[1] }} to {{ event.endTime.split('-')[0] }}:{{ event.endTime.split('-')[1] }}</div>
 
         </mat-list-item>
     </mat-list>

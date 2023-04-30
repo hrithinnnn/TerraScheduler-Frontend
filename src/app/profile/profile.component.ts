@@ -36,6 +36,11 @@ export class ProfileComponent implements OnInit {
   constructor(public dialog: MatDialog, private route: ActivatedRoute, private http:HttpClient, private userService:UserService, private authService: AuthService) {}
 
   ngOnInit(): void {
+
+    this.route.params.subscribe(()=>{
+
+      this.load();
+    })
       
     this.date.valueChanges.subscribe((res) => {
 
@@ -47,7 +52,7 @@ export class ProfileComponent implements OnInit {
       this.fetchSchedules(this.dateVal);
     })
 
-    this.load();
+    // this.load();
   }
 
   load() {
