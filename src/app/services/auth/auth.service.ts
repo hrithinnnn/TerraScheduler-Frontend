@@ -159,32 +159,32 @@ export class AuthService {
    * /changepassword
    */
 
-  changePassword(email: string, oldPassword: string, newPassword: string) {
+//   changePassword(email: string, oldPassword: string, newPassword: string) {
 
-    return this.http.post(API_URL + '/changepassword', {
-      email, oldPassword, newPassword
-    }, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json; charset=utf-8',
-        'ignore-token': 'true'
-      })
-    }).pipe(
+//     return this.http.post(API_URL + '/changepassword', {
+//       email, oldPassword, newPassword
+//     }, {
+//       headers: new HttpHeaders({
+//         'Content-Type': 'application/json; charset=utf-8',
+//         'ignore-token': 'true'
+//       })
+//     }).pipe(
 
-      tap((res: any) => {
+//       tap((res: any) => {
 
-        if(res.status === 400) throw new Error(res.error.error.errorString);
-        this.feedback.openSnackBar(res.message)
+//         if(res.status === 400) throw new Error(res.error.error.errorString);
+//         this.feedback.openSnackBar(res.message)
 
-      }),
+//       }),
 
 
-      catchError(err => {
+//       catchError(err => {
 
-        this.feedback.openSnackBar(err.error.error.errorString);
-        return of({errorString: err.error.error.errorString, status: err.error.status});;
+//         this.feedback.openSnackBar(err.error.error.errorString);
+//         return of({errorString: err.error.error.errorString, status: err.error.status});;
     
-      })
+//       })
 
-    );
-  }
-}
+//     );
+//   }
+ }

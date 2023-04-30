@@ -1,10 +1,12 @@
 <div fxLayout="column" fxLayoutGap="10px">
 
-    <div><span>Email:</span><span>{{ profile.email }}</span></div>
+    <div id="name"><span>Name:</span><span>{{ profile.name }}</span></div>
+    <div fxLayout="row " fxLayoutAlign="space-around end" fxLayoutGap="10px">
 
-    <div><span>Name:</span><span>{{ profile.name }}</span></div>
 
-    <div><span>Role:</span><span>{{ profile.role }}</span></div>
+        <div id="email"><span>Email:</span><span>{{ profile.email }}</span></div>
+        <div id="role"><span>Role:</span><span>{{ profile.role }}</span></div>
+    </div>
 
     <!-- <app-calendar [email]="profile.email"></app-calendar>  -->
 
@@ -22,19 +24,20 @@
 
     </div>
 
-    <mat-list role="list">
-        <mat-list-item role="listitem" *ngFor="let event of schedule">
-
-            <div matListItemTitle>{{ event.type }}: {{ event.type === "Appointment" ? event.guestEmail + " and " : "" }} {{ event.type === "Appointment" ? event.hostEmail : event.email }}</div>
-            
-            <div matListItemLine>{{ event.startTime }} to {{ event.endTime }}</div>
-            
-        </mat-list-item>
-    </mat-list>
-
     <button *ngIf="ready && !currentUser" (click)="openApptDialog()" mat-button
         style="background-color: black; color: white;">Make Appointment</button>
     <button *ngIf="ready && currentUser" (click)="openOffHrsDialog()" mat-button
         style="background-color: black; color: white;">Set off-hours</button>
+    <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let event of schedule">
+
+            <div matListItemTitle>{{ event.type }}: {{ event.type === "Appointment" ? event.guestEmail + " and " : "" }}
+                {{ event.type === "Appointment" ? event.hostEmail : event.email }}</div>
+
+            <div matListItemLine>{{ event.startTime }} to {{ event.endTime }}</div>
+
+        </mat-list-item>
+    </mat-list>
+
     <!-- <button *ngIf="currentUser" (click)="openEditApptDialog()" mat-button style="background-color: black; color: white;">Edit Appointment</button> -->
 </div>

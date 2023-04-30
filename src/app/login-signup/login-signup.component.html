@@ -1,7 +1,7 @@
-<div style="width: 300px;" fxLayout="column" fxLayoutGap="10px">
+<div id="container" >
 
-    <form [formGroup]="formGroup" (ngSubmit)="submit()">
-
+    <form class="mat-elevation-z6" style="width:300px; margin: 20px; border-radius: 10px; border:solid black; padding: 20px;" [formGroup]="formGroup" (ngSubmit)="submit()">
+        <h1>Welcome, Terraformer!</h1>
         <mat-form-field *ngIf="!logIn" appearance="fill" >
             <mat-label>Enter your name</mat-label>
             <input matInput formControlName="name">

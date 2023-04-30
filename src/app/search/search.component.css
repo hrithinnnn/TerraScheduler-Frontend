@@ -16,3 +16,9 @@ mat-list-item:active {
 
     background-color: rgb(144, 144, 144);
 }
+
+
+
+.container-page{
+    margin: 20px;
+}

@@ -1,8 +1,17 @@
-<mat-form-field appearance="fill" >
-    <mat-label>Enter your email</mat-label>
-    <input matInput [formControl]="searchFormControl">
-</mat-form-field>
+<div class="container-page">
 
-<mat-list role="list">
-    <mat-list-item role="listitem" (click)="moveToProfile(result.email)" *ngFor="let result of results">{{result.email}}</mat-list-item>
-</mat-list>
+
+    <h1 style="font-size: 20px;">Search for TerraFormers</h1>
+    <div class="container">
+    
+        <mat-form-field appearance="fill" >
+            <mat-label>Search by email</mat-label>
+            <input matInput [formControl]="searchFormControl">
+        </mat-form-field>
+    </div>
+    
+    
+    <mat-list role="list">
+        <mat-list-item role="listitem" (click)="moveToProfile(result.email)" *ngFor="let result of results">{{result.email}}</mat-list-item>
+    </mat-list>
+</div>
