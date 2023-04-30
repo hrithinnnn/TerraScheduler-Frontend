@@ -27,4 +27,4 @@ Terraformers can view their upcoming appointments on the app. The appointments a
 Terraformers can mark their off-hours from their profile page. Off-hours are the times when they are not available for appointments during the day. To mark off-hours, terraformers need to select the date, start and end times of their off-hours.  
 
 ## Conclusion  
-This documentation provides an overview of the scheduling app for terraformers. The app allows terraformers to schedule appointments with each other, view their upcoming appointments, update their profile, and mark off-hours.  
+This documentation provides an overview of the scheduling app for terraformers. The app allows terraformers to schedule appointments with each other, view their upcoming appointments and mark off-hours.  
